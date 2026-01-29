@@ -2,6 +2,8 @@ import type { GameRecord } from '../types';
 import { Calendar, Clock, Gamepad2 } from 'lucide-react';
 import { cn } from '../utils/cn';
 import { motion } from 'framer-motion';
+import lolImg from '../assets/lol.jpg';
+import aovImg from '../assets/aov.jpg';
 
 interface GameCardProps {
   data: GameRecord;
@@ -9,7 +11,7 @@ interface GameCardProps {
 
 export function GameCard({ data }: GameCardProps) {
   const winRate = data.total > 0 ? Math.round((data.win / data.total) * 100) : 0;
-  
+
   // Determine color based on win rate
   const getWinRateColor = (rate: number) => {
     if (rate >= 60) return "bg-green-500";
@@ -30,13 +32,19 @@ export function GameCard({ data }: GameCardProps) {
       className="group relative bg-card text-card-foreground rounded-2xl border shadow-sm overflow-hidden flex flex-col"
     >
       {/* Top decoration line */}
-      <div className={cn("h-1.5 w-full", progressColor)} />
+      {/* <div className={cn("h-1.5 w-full", progressColor)} /> */}
 
       <div className="p-5 flex flex-col gap-4 flex-1">
         <div className="flex justify-between items-start gap-2">
           <div className="flex items-center gap-2 min-w-0">
-            <div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
-              <Gamepad2 size={20} />
+            <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary shrink-0 overflow-hidden flex items-center justify-center border border-border/50">
+              {data.game === "LMHT: Tốc Chiến" ? (
+                <img src={lolImg} alt="LoL" className="w-full h-full object-cover" />
+              ) : data.game === "Liên Quân Mobile" ? (
+                <img src={aovImg} alt="AoV" className="w-full h-full object-cover" />
+              ) : (
+                <Gamepad2 size={20} />
+              )}
             </div>
             <h3 className="font-bold text-lg truncate leading-tight" title={data.game}>
               {data.game}
@@ -44,8 +52,8 @@ export function GameCard({ data }: GameCardProps) {
           </div>
           <div className={cn(
             "px-2.5 py-1 rounded-full text-xs font-bold shrink-0 border",
-            winRate >= 50 
-              ? "bg-green-50 text-green-700 border-green-200 dark:bg-green-950/30 dark:text-green-400 dark:border-green-900" 
+            winRate >= 50
+              ? "bg-green-50 text-green-700 border-green-200 dark:bg-green-950/30 dark:text-green-400 dark:border-green-900"
               : "bg-red-50 text-red-700 border-red-200 dark:bg-red-950/30 dark:text-red-400 dark:border-red-900"
           )}>
             {winRate}% WR
@@ -59,11 +67,11 @@ export function GameCard({ data }: GameCardProps) {
             <span>{data.win}W - {data.loss}L</span>
           </div>
           <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-            <motion.div 
+            <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${winRate}%` }}
               transition={{ duration: 1, delay: 0.2 }}
-              className={cn("h-full rounded-full", progressColor)} 
+              className={cn("h-full rounded-full", progressColor)}
             />
           </div>
         </div>

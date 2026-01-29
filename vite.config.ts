@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'Game Report Analytics',
-        short_name: 'GameReport',
+        name: 'Game Report',
+        short_name: 'Game Report',
         description: 'Thống kê và báo cáo kết quả game cá nhân',
         theme_color: '#2563eb',
         background_color: '#ffffff',

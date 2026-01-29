@@ -41,9 +41,9 @@ export function Footer() {
             <h4 className="font-semibold text-foreground">Tài nguyên</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a 
-                  href="https://docs.google.com/spreadsheets/d/1sTG3J0Vaki70AqZlFwh-cAdVzeKkTgRkXszkSI7sUrc/edit?usp=sharing" 
-                  target="_blank" 
+                <a
+                  href="https://youtu.be/dQw4w9WgXcQ?si=7vh7LQeushpVOoC-"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary transition-colors flex items-center gap-2 group"
                 >
@@ -53,8 +53,8 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a 
-                  href="#" 
+                <a
+                  href="https://youtu.be/dQw4w9WgXcQ?si=Ld05eUC_CcKEr-96"
                   className="hover:text-primary transition-colors flex items-center gap-2"
                 >
                   <Github size={16} />

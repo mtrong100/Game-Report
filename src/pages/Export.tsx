@@ -27,16 +27,16 @@ export function Export() {
       // Exclude internal fields like 'id' if needed, but let's keep all relevant data
       const csvData = data.map(({ id, ...rest }) => rest);
       const csv = Papa.unparse(csvData);
-      
+
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `game_report_${new Date().toISOString().split('T')[0]}.csv`);
+      link.setAttribute('download', `game_tracker_${new Date().toISOString().split('T')[0]}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       setSuccessMessage('Xuất file CSV thành công!');
     } catch (err) {
       console.error(err);
@@ -53,9 +53,9 @@ export function Export() {
     try {
       const ws = XLSX.utils.json_to_sheet(data.map(({ id, ...rest }) => rest));
       const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Game Report");
-      XLSX.writeFile(wb, `game_report_${new Date().toISOString().split('T')[0]}.xlsx`);
-      
+      XLSX.utils.book_append_sheet(wb, ws, "Game Tracker");
+      XLSX.writeFile(wb, `game_tracker_${new Date().toISOString().split('T')[0]}.xlsx`);
+
       setSuccessMessage('Xuất file Excel thành công!');
     } catch (err) {
       console.error(err);
@@ -87,62 +87,62 @@ export function Export() {
 
       <div className="bg-card border border-border rounded-2xl p-8 shadow-sm">
         <div className="flex flex-col items-center justify-center mb-8 space-y-2">
-            <div className="p-4 bg-primary/10 rounded-full text-primary mb-2">
-                <Download size={48} />
-            </div>
-            <h2 className="text-xl font-semibold">Sẵn sàng để tải xuống</h2>
-            <p className="text-sm text-muted-foreground">
-                Tổng số bản ghi: <span className="font-bold text-foreground">{data.length}</span>
-            </p>
+          <div className="p-4 bg-primary/10 rounded-full text-primary mb-2">
+            <Download size={48} />
+          </div>
+          <h2 className="text-xl font-semibold">Sẵn sàng để tải xuống</h2>
+          <p className="text-sm text-muted-foreground">
+            Tổng số bản ghi: <span className="font-bold text-foreground">{data.length}</span>
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button
-                onClick={handleExportCSV}
-                disabled={exporting !== null}
-                className="flex items-center justify-center gap-3 p-4 rounded-xl border border-border hover:bg-secondary/50 transition-all hover:border-primary/50 group disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-                <div className="p-3 bg-green-100 text-green-600 rounded-lg group-hover:scale-110 transition-transform dark:bg-green-900/30 dark:text-green-400">
-                    <FileText size={24} />
-                </div>
-                <div className="text-left">
-                    <div className="font-semibold">CSV Format</div>
-                    <div className="text-xs text-muted-foreground">Tương thích rộng rãi</div>
-                </div>
-            </button>
+          <button
+            onClick={handleExportCSV}
+            disabled={exporting !== null}
+            className="flex items-center justify-center gap-3 p-4 rounded-xl border border-border hover:bg-secondary/50 transition-all hover:border-primary/50 group disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <div className="p-3 bg-green-100 text-green-600 rounded-lg group-hover:scale-110 transition-transform dark:bg-green-900/30 dark:text-green-400">
+              <FileText size={24} />
+            </div>
+            <div className="text-left">
+              <div className="font-semibold">CSV Format</div>
+              <div className="text-xs text-muted-foreground">Tương thích rộng rãi</div>
+            </div>
+          </button>
 
-            <button
-                onClick={handleExportExcel}
-                disabled={exporting !== null}
-                className="flex items-center justify-center gap-3 p-4 rounded-xl border border-border hover:bg-secondary/50 transition-all hover:border-primary/50 group disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-                <div className="p-3 bg-blue-100 text-blue-600 rounded-lg group-hover:scale-110 transition-transform dark:bg-blue-900/30 dark:text-blue-400">
-                    <FileSpreadsheet size={24} />
-                </div>
-                <div className="text-left">
-                    <div className="font-semibold">Excel Format</div>
-                    <div className="text-xs text-muted-foreground">Dành cho Microsoft Excel</div>
-                </div>
-            </button>
+          <button
+            onClick={handleExportExcel}
+            disabled={exporting !== null}
+            className="flex items-center justify-center gap-3 p-4 rounded-xl border border-border hover:bg-secondary/50 transition-all hover:border-primary/50 group disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <div className="p-3 bg-blue-100 text-blue-600 rounded-lg group-hover:scale-110 transition-transform dark:bg-blue-900/30 dark:text-blue-400">
+              <FileSpreadsheet size={24} />
+            </div>
+            <div className="text-left">
+              <div className="font-semibold">Excel Format</div>
+              <div className="text-xs text-muted-foreground">Dành cho Microsoft Excel</div>
+            </div>
+          </button>
         </div>
 
-        <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: successMessage || error ? 1 : 0, height: 'auto' }}
-            className="mt-6"
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: successMessage || error ? 1 : 0, height: 'auto' }}
+          className="mt-6"
         >
-            {successMessage && (
-                <div className="flex items-center gap-2 text-green-600 bg-green-50 dark:bg-green-900/20 p-3 rounded-lg text-sm justify-center">
-                    <CheckCircle size={16} />
-                    {successMessage}
-                </div>
-            )}
-            {error && (
-                <div className="flex items-center gap-2 text-red-600 bg-red-50 dark:bg-red-900/20 p-3 rounded-lg text-sm justify-center">
-                    <AlertCircle size={16} />
-                    {error}
-                </div>
-            )}
+          {successMessage && (
+            <div className="flex items-center gap-2 text-green-600 bg-green-50 dark:bg-green-900/20 p-3 rounded-lg text-sm justify-center">
+              <CheckCircle size={16} />
+              {successMessage}
+            </div>
+          )}
+          {error && (
+            <div className="flex items-center gap-2 text-red-600 bg-red-50 dark:bg-red-900/20 p-3 rounded-lg text-sm justify-center">
+              <AlertCircle size={16} />
+              {error}
+            </div>
+          )}
         </motion.div>
       </div>
 

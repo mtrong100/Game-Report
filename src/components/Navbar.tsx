@@ -35,10 +35,10 @@ export function Navbar() {
 
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative w-8 h-8 md:w-10 md:h-10 transition-transform group-hover:scale-105">
-              <img src="/logo.svg" alt="Game Report Logo" className="w-full h-full object-contain drop-shadow-md" />
+              <img src="/logo.svg" alt="Game Tracker Logo" className="w-full h-full object-contain drop-shadow-md" />
             </div>
             <span className="font-bold text-lg md:text-xl hidden sm:inline-block bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-              Game Report
+              Game Tracker
             </span>
           </Link>
         </div>

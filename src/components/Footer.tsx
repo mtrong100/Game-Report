@@ -11,7 +11,7 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="text-lg font-bold bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-              Game Report
+              Game Tracker
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Hệ thống theo dõi và phân tích dữ liệu game cá nhân.
@@ -67,7 +67,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>© {currentYear} Game Report. All rights reserved.</p>
+          <p>© {currentYear} Game Tracker. All rights reserved.</p>
           <div className="flex items-center gap-1">
             <span>Designed with</span>
             <Heart size={14} className="fill-red-500 text-red-500 animate-pulse" />
